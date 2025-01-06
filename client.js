@@ -1,7 +1,7 @@
 window.TrelloPowerUp.initialize({
   'card-buttons': function (t) {
     return [{
-      icon: 'https://devmm.com.br/logo.png',
+      icon: 'https://cdn-icons-png.flaticon.com/512/1782/1782440.png',
       text: 'Definir Estimativa',
       callback: function (t) {
         return t.popup({
