@@ -6,55 +6,58 @@
   <title>Time Estimate</title>
   <script src="https://p.trellocdn.com/power-up.min.js"></script>
   <link rel="stylesheet" href="https://p.trellocdn.com/power-up.min.css">
-  <!-- Importação do Atlassian Select CSS -->
-  <link rel="stylesheet" href="https://unpkg.com/@atlaskit/select@16.5.0/dist/esm/select.css">
+  <style>
+    select {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #dfe1e6;
+      border-radius: 4px;
+      font-size: 14px;
+      color: #172b4d;
+    }
+
+    select:focus {
+      border-color: #4c9aff;
+      box-shadow: 0 0 0 2px rgba(76, 154, 255, 0.2);
+      outline: none;
+    }
+
+    select {
+      appearance: none;
+      background-image: url('https://cdn-icons-png.flaticon.com/512/32/32195.png');
+      background-repeat: no-repeat;
+      background-position: right 8px center;
+      background-size: 9px;
+      padding-right: 32px;
+    }
+  </style>
 </head>
 <body>
   <div class="container">
     <div class="u-mb-16">
       <label for="time-estimate" class="u-block">Estimated Time</label>
-      <input type="number" id="time-estimate" class="u-fullwidth-input" placeholder="0" min="0" style="width: 100%;">
+      <input type="number" id="time-estimate" class="u-fullwidth-input" style="width: 100%;" placeholder="0" min="0">
     </div>
 
     <div class="u-mb-16">
       <label for="time-unit" class="u-block">Unit</label>
-      <!-- Componente Select da Atlassian -->
-      <div id="time-unit-select" style="width: 100%;"></div>
+      <select id="time-unit" class="u-fullwidth-input">
+        <option value="h">Hours (h)</option>
+        <option value="m">Minutes (m)</option>
+      </select>
     </div>
 
     <button id="save" class="mod-primary">Save</button>
   </div>
 
-  <script src="https://unpkg.com/@atlaskit/select@16.5.0/dist/umd/select.min.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       var t = window.TrelloPowerUp.iframe();
 
-      // Criação do Select usando o Atlassian Design System
-      var Select = window.atlaskit.Select;
-      var selectElement = document.getElementById('time-unit-select');
-
-      // Opções do Select
-      var timeUnitOptions = [
-        { label: 'Hours (h)', value: 'h' },
-        { label: 'Minutes (m)', value: 'm' }
-      ];
-
-      // Renderização do Select
-      var select = new Select({
-        options: timeUnitOptions,
-        defaultValue: timeUnitOptions[0],
-        onChange: function (option) {
-          selectElement.dataset.selectedValue = option.value;
-        }
-      });
-
-      select.render(selectElement);
-
       // Salvando a estimativa
       document.getElementById('save').addEventListener('click', function () {
         var estimate = document.getElementById('time-estimate').value;
-        var unit = selectElement.dataset.selectedValue || 'h';
+        var unit = document.getElementById('time-unit').value;
         var estimateText = estimate + unit;
 
         t.set('card', 'shared', 'estimativa', estimateText)
