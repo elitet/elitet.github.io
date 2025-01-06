@@ -2,7 +2,7 @@ window.TrelloPowerUp.initialize({
   // Botão no card
   'card-buttons': function (t) {
     return [{
-      icon: 'https://cdn-icons-png.flaticon.com/512/833/833604.png',
+      icon: 'https://cdn-icons-png.flaticon.com/128/833/833604.png',
       text: 'Definir Estimativa',
       callback: function (t) {
         return t.popup({
@@ -20,7 +20,7 @@ window.TrelloPowerUp.initialize({
       .then(function (estimativa) {
         if (estimativa) {
           return [{
-            icon: "https://cdn-icons-png.flaticon.com/512/833/833604.png",
+            icon: "https://cdn-icons-png.flaticon.com/128/833/833604.png",
             text: estimativa
           }];
         } else {
