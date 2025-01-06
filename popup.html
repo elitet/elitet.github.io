@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Definir Estimativa</title>
+  <script src="https://p.trellocdn.com/power-up.min.js"></script>
+  <script>
+    var t = window.TrelloPowerUp.iframe();
+
+    document.getElementById('save').addEventListener('click', function () {
+      var estimativa = document.getElementById('estimativa').value;
+      t.set('card', 'shared', 'estimativa', estimativa)
+        .then(function () {
+          t.closePopup();
+        });
+    });
+  </script>
+</head>
+<body>
+  <h2>Definir Estimativa</h2>
+  <input type="number" id="estimativa" placeholder="Horas" min="0">
+  <button id="save">Salvar</button>
+</body>
+</html>

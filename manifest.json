@@ -1,0 +1,15 @@
+{
+  "name": "Estimativa de Desenvolvimento",
+  "description": "Adicione estimativas de tempo diretamente nos cards do Trello.",
+  "author": "Matheus Marques",
+  "capabilities": [
+    "card-buttons",
+    "card-badges"
+  ],
+  "icon": {
+    "url": "https://devmm.com.br/logo.png"
+  },
+  "connectors": {},
+  "url": "https://elitet.github.io/index.html",
+  "tags": ["time", "development", "planning"]
+}
