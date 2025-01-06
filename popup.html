@@ -6,35 +6,55 @@
   <title>Time Estimate</title>
   <script src="https://p.trellocdn.com/power-up.min.js"></script>
   <link rel="stylesheet" href="https://p.trellocdn.com/power-up.min.css">
+  <!-- Importação do Atlassian Select CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/@atlaskit/select@16.5.0/dist/esm/select.css">
 </head>
 <body>
   <div class="container">
-    <h2 class="u-inline-block">Time Estimate</h2>
-
     <div class="u-mb-16">
       <label for="time-estimate" class="u-block">Estimated Time</label>
-      <input type="number" id="time-estimate" class="u-fullwidth-input" placeholder="0" min="0">
+      <input type="number" id="time-estimate" class="u-fullwidth-input" placeholder="0" min="0" style="width: 100%;">
     </div>
 
     <div class="u-mb-16">
       <label for="time-unit" class="u-block">Unit</label>
-      <select id="time-unit" class="u-fullwidth-input">
-        <option value="h">Hours (h)</option>
-        <option value="m">Minutes (m)</option>
-      </select>
+      <!-- Componente Select da Atlassian -->
+      <div id="time-unit-select" style="width: 100%;"></div>
     </div>
 
-    <button id="save" class="button-primary u-fullwidth-button">Save</button>
+    <button id="save" class="mod-primary">Save</button>
   </div>
 
+  <script src="https://unpkg.com/@atlaskit/select@16.5.0/dist/umd/select.min.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       var t = window.TrelloPowerUp.iframe();
 
+      // Criação do Select usando o Atlassian Design System
+      var Select = window.atlaskit.Select;
+      var selectElement = document.getElementById('time-unit-select');
+
+      // Opções do Select
+      var timeUnitOptions = [
+        { label: 'Hours (h)', value: 'h' },
+        { label: 'Minutes (m)', value: 'm' }
+      ];
+
+      // Renderização do Select
+      var select = new Select({
+        options: timeUnitOptions,
+        defaultValue: timeUnitOptions[0],
+        onChange: function (option) {
+          selectElement.dataset.selectedValue = option.value;
+        }
+      });
+
+      select.render(selectElement);
+
       // Salvando a estimativa
       document.getElementById('save').addEventListener('click', function () {
         var estimate = document.getElementById('time-estimate').value;
-        var unit = document.getElementById('time-unit').value;
+        var unit = selectElement.dataset.selectedValue || 'h';
         var estimateText = estimate + unit;
 
         t.set('card', 'shared', 'estimativa', estimateText)
